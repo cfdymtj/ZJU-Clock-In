@@ -8,7 +8,7 @@ import re
 import datetime
 import time
 import sys
-# import ddddocr
+import ddddocr
 
 TRY_LIMIT = 5
 
