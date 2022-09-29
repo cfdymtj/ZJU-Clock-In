@@ -1,14 +1,13 @@
-name: 打卡
+name: ClockIn
 
 on:
-  workflow_dispatch:
   push:
     branches: 
       - master
-  #watch:
-  #  types: started
+  watch:
+    types: started
   schedule:
-     - cron: '0 0,1,8 * * *'
+    - cron: 0 */8 * * *
 
 jobs:
   ClockIn:
@@ -18,13 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install python3
+        uses: actions/setup-python@master
+        with:
+          python-version: '3.8'
+      - name: Install packages
         run: |
-          sudo -E apt-get -yqq update
-          sudo -E apt-get -yqq install python3
-          
-      # - name: DDDDOCR
-       # run: |
-        # python3 -m pip install ddddocr
+          pip3 install requests
+          pip install ddddocr==1.1.0
       - name: Clock In
         env:
           ACCOUNT: ${{ secrets.ACCOUNT }}
